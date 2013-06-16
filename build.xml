@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<!DOCTYPE project [
+<!ENTITY buildProps SYSTEM "./build.properties">
+]>
+
+<project name="jsonRetriever" default="build" basedir=".">
+    &buildProps;
+    <property name="appname" value="${ant.project.name}" />
+    <property name="compile.debug" value="true" />
+    <property name="compile.optimize" value="false" />    
+    
+    <path id="compile.classpath">
+        <fileset dir="web/WEB-INF/lib">
+            <include name="*.jar" />
+        </fileset>
+        <fileset dir="lib">
+            <include name="*.jar" />
+        </fileset>
+    </path>
+    
+    <path id="run.classpath">
+        <fileset dir="web/WEB-INF/lib">
+            <include name="*.jar" />
+        </fileset>
+        <pathelement location="${build.dir}"/>
+    </path>
+
+    <target name="init">
+        <echo message="-------- Start building, please wait --------" />
+    </target>
+    
+    <target name="build" depends="compile">
+        <echo message=" Building with ${ant.version} on Java ${ant.java.version}...." />
+    </target>
+    
+    <target name="prepare" depends="init">
+        <mkdir dir="${dist.dir}" />
+        <mkdir dir="${build.dir}" />
+        <copy todir="${build.dir}" overwrite="true">
+            <fileset dir="${conf.dir}">
+                <include name="i18n*.properties" />
+            </fileset>
+        </copy>
+    </target>
+    
+    <target name="compile" depends="prepare">
+        <javac srcdir="${src.dir}/" destdir="${build.dir}/" encoding="utf8" debug="${compile.debug}">
+            <classpath refid="compile.classpath" />
+            <!-- 
+                <compilerarg value="-Xlint:unchecked" />
+            -->
+        </javac>
+    </target>
+    
+    <target name="clean">
+        <delete dir="${dist.dir}" />
+        <delete dir="${build.dir}" />
+    </target>
+    
+    <target name="dist" depends="package">
+        <echo message=" Packaging war file...." />
+    </target>
+    
+    <target name="package"  depends="build">
+		<war	destfile="${dist.dir}/${appname}.war" 
+				basedir="${web.dir}" 
+				webxml="${web.xml}"	>			
+		</war>
+    </target>
+    
+    <target name="runtest">
+        <java classname="Test" classpathref="run.classpath"/>
+    </target>
+        
+</project>
