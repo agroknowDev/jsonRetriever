@@ -1,21 +1,16 @@
 package gr.agroknow.service.jsonRetriever ;
 
-import java.io.File ;
 import java.io.IOException ;
 import java.io.InputStream;
 import java.io.PrintWriter ;
 import java.net.URL;
 import java.util.Map ;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.servlet.ServletException ;
 import javax.servlet.http.HttpServlet ;
 import javax.servlet.http.HttpServletRequest ;
 import javax.servlet.http.HttpServletResponse ;
 
-import org.apache.commons.io.FileUtils ;
 import org.apache.commons.io.IOUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
