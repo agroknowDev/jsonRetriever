@@ -92,7 +92,7 @@ public class JSONRetrieverServlet extends HttpServlet
     	}
 
     	//Write it to Response  
-    	response.setContentType( "text/javascript" ) ;
+    	response.setContentType( "text/javascript; charset=UTF-8" ) ;
     	PrintWriter out = response.getWriter();
     	out.println( jsonPoutput ) ;
     	//out.println( "test( 1'2 )".replaceAll( "'", "\\\\'" ) ) ;
